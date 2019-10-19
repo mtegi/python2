@@ -14,7 +14,7 @@ class Sheep:
         self.y = random.uniform(-init_pos_limit, init_pos_limit)
 
     def move(self): #ruch o kierunek
-        direction = random.randint(1, 4)
+        direction = random.randint(1, 4) #losuj
         if direction == 1: #polnoc
             self.y += self.move_dist
         elif direction == 2: #poludnie
