@@ -8,10 +8,10 @@ def calc_distance(x1, y1, x2, y2):
 
 
 class Sheep:
-    def __init__(self, init_pos_limit, sheep_move_dist):
+    def __init__(self, init_pos_limit, sheep_move_dist, x, y):
         self.move_dist = sheep_move_dist
-        self.x = random.uniform(-init_pos_limit, init_pos_limit)
-        self.y = random.uniform(-init_pos_limit, init_pos_limit)
+        self.x = x
+        self.y = y
 
     def move(self): #ruch o kierunek
         direction = random.randint(1, 4) #losuj
@@ -19,9 +19,9 @@ class Sheep:
             self.y += self.move_dist
         elif direction == 2: #poludnie
             self.y -= self.move_dist
-        elif direction == 3: #wschod
+        elif direction == 3: #zachod
             self.x -= self.move_dist
-        elif direction == 4: #zachod
+        elif direction == 4: #wschod
             self.x += self.move_dist
 
     def distance_from_wolf(self, wolf_x, wolf_y):

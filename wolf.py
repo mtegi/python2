@@ -11,12 +11,22 @@ class Wolf:
         self.eaten = []
         self.eaten_sheep_index = None
 
+    def reset(self):
+        self.x = 0
+        self.y = 0
+        self.eaten = []
+        self.eaten_sheep_index = None
+
+    def setPos(self, x, y):
+        self.x = x
+        self.y = y
+
     def search(self, sheep_arr):
         if sheep_arr == [None] * len(sheep_arr): #czy cala tablica to None'y ?
-            return #zjedzono wszystkie owce
+            return False
 
         #znajdz owce ktora jest najblizej
-        tmp_arr = [s for s in sheep_arr if s is not None] #kopiowanie tablicy ale nwm czy da sie inaczej
+        tmp_arr = [s for s in sheep_arr if s is not None] #zywe owce
         min_sheep = min(tmp_arr, key=lambda x: x.distance_from_wolf(self.x, self.y))
 
         #jesli nablizsza owca jest w zasiegu ataku to ja zjedz
@@ -24,7 +34,8 @@ class Wolf:
             self.eaten.append(min_sheep)
             self.eaten_sheep_index = sheep_arr.index(min_sheep) #indeks zjedzonej owcy (do wypisywania)
             sheep_arr[sheep_arr.index(min_sheep)] = None
-        else: #zaawanowana matematyka ruchu wilka
+            return True
+        else:
             vec_sheep = np.array([min_sheep.x, min_sheep.y]) #wektor owcy
             vec_wolf = np.array([self.x, self.y]) # wektor wilka
             vec_ws = vec_sheep - vec_wolf #wektor wypadkowy
@@ -34,6 +45,7 @@ class Wolf:
             self.x = vec_res[0] #ustaw nowe wspolrzedne
             self.y = vec_res[1]
             self.eaten_sheep_index = None # bo nie zjadl zadnej
+            return False
 
 
 
